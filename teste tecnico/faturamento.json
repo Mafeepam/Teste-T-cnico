@@ -1,0 +1,17 @@
+const fs = require('fs');
+
+const data = JSON.parse(fs.readFileSync('faturamento.json'));
+const faturamentos = data.map(dia => dia.valor);
+
+
+const media = faturamentos.reduce((acc, curr) => acc + curr, 0) / faturamentos.filter(valor => valor > 0).length;
+
+const menorValor = Math.min(...faturamentos);
+const maiorValor = Math.max(...faturamentos);
+
+
+const diasAcimaDaMedia = faturamentos.filter(valor => valor > media).length;
+
+console.log(`Menor valor: ${menorValor}`);
+console.log(`Maior valor: ${maiorValor}`);
+console.log(`Dias acima da média: ${diasAcimaDaMedia}`);
